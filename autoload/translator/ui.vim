@@ -96,7 +96,9 @@ function! translator#ui#window(translations) abort
     call setwinvar(winid, '&wincolor', 'TranslatorNF')
   else
     let curr_pos = getpos('.')
-    execute 'noswapfile bo pedit!'
+    wincmd z  " does not seem to work
+    noswapfile bo new
+    set previewwindow
     call setpos('.', curr_pos)
     wincmd P
     execute height+1 . 'wincmd _'
@@ -118,7 +120,7 @@ function! translator#ui#window(translations) abort
 
     augroup translator_close
       autocmd!
-      autocmd CursorMoved,CursorMovedI,InsertEnter,BufLeave <buffer> call s:close_translator_window()
+      " autocmd CursorMoved,CursorMovedI,InsertEnter,BufLeave <buffer> call s:close_translator_window()
     augroup END
   endif
 endfunction
